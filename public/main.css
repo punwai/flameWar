@@ -1,0 +1,13 @@
+ul {
+  list-style: none;
+}
+.public_rooms {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px black solid;
+  margin: auto;
+}
+
+.additionalInfo{
+
+}

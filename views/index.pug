@@ -1,0 +1,19 @@
+extends layout.pug
+block links
+  link(rel="stylesheet" href="/static/main.css")
+block content
+  div.container-fluid
+    div.row
+      div.col-sm
+        h1 Join Rooms and FLAME
+    div.row
+      table
+        ul
+          each room, index in rooms ? rooms : ['No RoomS!']
+            li.public_rooms
+              div
+                a(href='/publicchat/'+'room-'+roomIDs[index])=room
+                br
+                a.additionalInfo= ' online:' + count[index]
+
+          

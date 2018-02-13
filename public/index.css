@@ -1,0 +1,8 @@
+.mainNav {
+  position: sticky;
+  top: 0px;
+}
+body{
+  display: flex;
+  flex-direction:column;
+}

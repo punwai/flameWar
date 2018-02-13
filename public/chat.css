@@ -1,0 +1,132 @@
+/*Page configuration*/
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow-y: hidden;
+  overflow-x: hidden;
+  position: fixed;
+  left: 0px;
+  right: 0px;
+  top: 0px;
+  bottom: 0px;
+
+}
+{
+  box-sizing: border-box;
+}
+
+/*General stuff*/
+ul {
+  list-style: none;
+  word-wrap: break-word;
+}
+
+/*Header*/
+#topicrow{
+  position: sticky;
+  top: 0px;
+  background: white;
+}
+
+/*pages*/
+.pages{
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  width: 100%
+}
+
+.page {
+  box-sizing: border-box;
+  height: 100%;
+  margin-bottom: 50px;
+  position: absolute;
+  width: 100%;
+}
+
+/*login page*/
+
+.login.page .form {
+  height: 1000px;
+  margin-top: -100px;
+  position: absolute;
+  text-align: center;
+  top:50%;
+  width: 100%;
+}
+
+/*CHAT PAGE*/
+#sendform input {
+  border: 0;
+  padding: 10px;
+  width: 90%;
+  margin-right: .5%;
+}
+
+.chat.page.background{
+  display: none;
+  background: rgb(219, 219, 219);
+}
+#messages {
+  color: #000;
+
+}
+/*side of argument buttons*/
+
+#messagerow {
+  height: 80%;
+}
+
+  #messageBox{
+    height: 100%;
+  }
+
+    #messagediv{
+      background: #FFF;
+      height: 100%;
+      margin-right: 2px;
+      overflow-x: hidden;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
+      border-bottom: 1px black solid;
+      border-left: 1px black solid;
+      border-right: 1px black solid;
+      overflow-y: scroll;
+    }
+      #messages{
+        margin-bottom: 20%;
+      }
+      #messages li {
+        padding: 2px;
+        padding-left: 5px;
+        border-radius: 2px;
+        margin-bottom: 3px;
+      }
+
+    .sideButtonGroup{
+      width: 100%;
+      position: relative;
+      height: 40px;
+    }
+      .sideButton{
+        width: 33.333333333333333333333333333333333%;
+      }
+      /*message box divs*/
+
+
+/*send form*/
+#sendform { background: #000;
+  padding: 3px;
+  position: fixed;
+  bottom: 0;
+  height: 50px;
+  width: 100%;
+}
+  #sendform button {
+    width: 9%;
+    background: rgb(130, 224, 255);
+    border: none;
+    padding: 10px;
+  }

@@ -1,0 +1,50 @@
+
+extends layout.pug
+block links
+  link(rel="stylesheet", type="text/css",href="/static/chat.css")
+block scripts
+  script(src="https://code.jquery.com/jquery-3.3.1.js")
+  script(src="/socket.io/socket.io.js")
+  -var room = JSON.parse(roomInfo)
+  -var roomtype = typeof(roomInfo)
+  script(src="/static/chat.js") room = room
+  script.
+    $(function() {
+      console.log('hi');
+      
+    })
+
+block content
+
+  input(type='hidden', value=roomInfo)#inforoom
+  div.pages
+    div.login.page.background
+      div.login.page.container-fluid
+        div.form#usernameForm
+          h3 Enter your username
+          input#usernameInput(type="text", maxlength = "15")
+    div.chat.page.background
+      div.chat.page.container-fluid
+        div.row#topicrow
+          div.col-sm
+            h1#topic= room['topic']
+        
+        div.row#messagerow
+          div.col-sm-8#message-column
+            div#messageBox
+              div.btn-group.sideButtonGroup(role="group", aria-label="side")
+                button#for(type="button", style="border-bottom-left-radius:0px").btn.btn-primary.sideButton For
+                button#neutral(type="button").btn.btn-secondary.sideButton Neutral
+                button#against(type="button", style="border-bottom-right-radius:0px").btn.btn-danger.sideButton Against
+              div#messagediv
+                ul#messages
+          div.col-sm-4
+            div#onlineusers
+              ul#oulist
+                il
+                  h2 Online Users
+        
+      form#sendform(action="")
+        input(autocomplete="off")#m
+        button Send
+          
