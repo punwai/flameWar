@@ -157,6 +157,7 @@ app.route('/publicchat/createRoom')
       let collection = dabe.get().collection('rooms');
       collection.insertOne(room, (err, result) => {
         console.log('1 Room Created!');
+        res.redirect('/');
         onlineUsers[result.ops[0]['_id']] = Array();
         curr_onlineUsers = onlineUsers[result.ops[0]['_id']]
         if(!err){
@@ -234,6 +235,11 @@ app.route('/publicchat/room-:roomID')
 //     if() {
 // ``
 //     }
+  })
+
+app.route('/about')
+  .get((req, res, next) => {
+    res.render('about')
   })
 
 http.listen('3000', () => {
