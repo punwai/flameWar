@@ -1,8 +1,17 @@
-.mainNav {
-  position: sticky;
-  top: 0px;
+ul {
+  list-style: none;
 }
-body{
-  display: flex;
-  flex-direction:column;
+.public_rooms {
+  padding-left: 10px;
+  padding-right: 10px;
+  border-bottom: 1px black solid;
+  width: 100%;
+  margin: auto;
+}
+
+.additionalInfo{
+
+}
+.roomsul{
+  width: 100%;
 }

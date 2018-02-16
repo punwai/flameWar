@@ -1,14 +1,14 @@
 extends layout.pug
 block links
-  link(rel="stylesheet" href="/static/main.css")
+  link(rel="stylesheet" href="/static/index.css")
 block content
   div.container-fluid
     div.row
       div.col-sm
         h1 Join Rooms and FLAME
     div.row
-      table
-        ul
+      div.col-sm-8
+        ul.roomsul
           each room, index in rooms ? rooms : ['No RoomS!']
             li.public_rooms
               div
@@ -16,4 +16,4 @@ block content
                 br
                 a.additionalInfo= ' online:' + count[index]
 
-          
+        
