@@ -143,68 +143,71 @@ app.route('/')
 
 //ROOM CREATE
 app.route('/publicchat/createRoom')
-  .get(room_controller.room_create_get)
-  .post(body('topic', 'Topic required').isLength({ min: 1}).trim(),
-  sanitizeBody('topic').trim().escape(),
-
-  (req, res, next) => {
-    const errors = validationResult(req);
-
-    var room = { topic : req.body.topic, onlineUsers: []}
-    if(!errors.isEmpty()){
-      res.render('room_create_form', {room: room, errors:errors.array()});
-    }else{
-      let collection = dabe.get().collection('rooms');
-      collection.insertOne(room, (err, result) => {
-        console.log('1 Room Created!');
-        res.redirect('/');
-        onlineUsers[result.ops[0]['_id']] = Array();
-        curr_onlineUsers = onlineUsers[result.ops[0]['_id']]
-        if(!err){
-          io
-          .of('/'+result.ops[0]['_id'])
-          .on('connection', (socket) => {
-            let socketusername = null;
-            console.log('user connected from room with id:' + result[i]['_id'] +' and topic:'+ result[i]['topic']);
-            // console.log('a user connected to room with id: ' + result[i]['_id'] + ' topic: ' + result[i]['topic']);
-            // console.log(socket);
-            console.log('curr before sending' + curr_onlineUsers);
-            socket.emit('onlineUsers', curr_onlineUsers);
-
-            socket.on('chat message', (msg) => {
-              chat.emit('chat message', msg);
-            })
-
-
-            socket.on('disconnect', () => {
-              dabe.get().collection('rooms')
-              console.log('user disconnected');
-              console.log(socketusername + " left");
-              if (socketusername != null) {
-                console.log('deleting: '+[curr_onlineUsers.indexOf(socketusername)]);
-                chat.emit('user disconnect', socketusername);
-                curr_onlineUsers.splice(curr_onlineUsers.indexOf(socketusername),1);
-              }
-            })
-
-            //username sent
-            socket.on('user connect', (username) => {
-              console.log('user ' + username +' is waiting to connect');
-              if(socketusername != null){
-
-              }else{
-                socketusername = username;
-                console.log('user '+ socketusername + ' connected');
-                curr_onlineUsers.push(username);
-                console.log('onlineUsers: '+curr_onlineUsers);
-                chat.emit('user connect', username);
-              }
-            })
-          })
-        }
-      })
-    }
+  .get(() => {
+      res.render('room_create_form');
   })
+  .post(
+      body('topic', 'Topic required').isLength({ min: 1}).trim(),
+      sanitizeBody('topic').trim().escape(),
+
+        (req, res, next) => {
+          const errors = validationResult(req);
+
+          var room = { topic : req.body.topic, onlineUsers: []}
+          if(!errors.isEmpty()){
+            res.render('room_create_form', {room: room, errors:errors.array()});
+          }else{
+            let collection = dabe.get().collection('rooms');
+            collection.insertOne(room, (err, result) => {
+              console.log('1 Room Created!');
+              res.redirect('/');
+              onlineUsers[result.ops[0]['_id']] = Array();
+              curr_onlineUsers = onlineUsers[result.ops[0]['_id']]
+              if(!err){
+                io
+                .of('/'+result.ops[0]['_id'])
+                .on('connection', (socket) => {
+                  let socketusername = null;
+                  console.log('user connected from room with id:' + result[i]['_id'] +' and topic:'+ result[i]['topic']);
+                  // console.log('a user connected to room with id: ' + result[i]['_id'] + ' topic: ' + result[i]['topic']);
+                  // console.log(socket);
+                  console.log('curr before sending' + curr_onlineUsers);
+                  socket.emit('onlineUsers', curr_onlineUsers);
+
+                  socket.on('chat message', (msg) => {
+                    chat.emit('chat message', msg);
+                  })
+
+
+                  socket.on('disconnect', () => {
+                    dabe.get().collection('rooms')
+                    console.log('user disconnected');
+                    console.log(socketusername + " left");
+                    if (socketusername != null) {
+                      console.log('deleting: '+[curr_onlineUsers.indexOf(socketusername)]);
+                      chat.emit('user disconnect', socketusername);
+                      curr_onlineUsers.splice(curr_onlineUsers.indexOf(socketusername),1);
+                    }
+                  })
+
+                  //username sent
+                  socket.on('user connect', (username) => {
+                    console.log('user ' + username +' is waiting to connect');
+                    if(socketusername != null){
+
+                    }else{
+                      socketusername = username;
+                      console.log('user '+ socketusername + ' connected');
+                      curr_onlineUsers.push(username);
+                      console.log('onlineUsers: '+curr_onlineUsers);
+                      chat.emit('user connect', username);
+                    }
+                  })
+                })
+              }
+            })
+          }
+        })
 
 //ROOMS
 app.route('/publicchat/room-:roomID')
